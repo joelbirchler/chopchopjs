@@ -1,0 +1,1 @@
+I created this as a programming puzzle/quiz game. It presents you with a few lines of code and an assert. The goal is to modify the lines of code to get the assert to pass. Some lines are editable, some are not.
