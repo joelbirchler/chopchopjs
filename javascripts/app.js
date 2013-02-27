@@ -5,6 +5,8 @@
   // ScriptEvaluator may be used in two ways. Either pass success and fail callback arguments or 
   // call .success() and .fail(error) on a ScriptEvaluator object.
   //
+  // We prepend a few checks to make sure that the assert() function survives the user entered code.
+  //
   var ScriptEvaluator = function(script, success, fail) {
     var error, 
       deferred = $.Deferred();
@@ -15,7 +17,7 @@
     }
 
     try {
-      eval("(function() {" + script + "assert(true, true); assert(false, false); assert(42,42); var iAmACheater = false; try { assert(true, false); iAmACheater = true; } catch(e) { iAmACheater = false; }; if (iAmACheater) { throw 'Do not cheat.'; } })();");
+      eval("(function() {" + script + "assert(true, true); assert(false, false); assert(42, 42); var iAmACheater = false; try { assert(true, false); iAmACheater = true; } catch(e) { iAmACheater = false; }; if (iAmACheater) { throw 'Do not cheat.'; } })();");
       deferred.resolve();
     } catch(err) {
       deferred.reject(err);
@@ -37,8 +39,13 @@
     "<p><%= intro %></p>" +
     "<pre><%= code %></pre>" +
     "<a class='run' href='javascript:void(0)'>Run</a>" +
+    "<div class='results'></div>" +
     "</section>"
   );
+  
+  Puzzle.failTemplate = _.template("<p><span class='error-message'>&#10007; <%= err %>.</span> <%= hint %></p>");
+  
+  Puzzle.successTemplate = _.template("<p><span class='success-check'>&#10003;</span> <%= success %></p>");
   
   Puzzle.load = function(puzzleName) {
     var deferred = $.Deferred();
@@ -63,29 +70,40 @@
   };
   
   Puzzle.prototype.run = function() {
-    // grab the values from the text inputs
+    var that = this;
+    
+    // grab the values from the text input (spans)
     var inputs = this.$el
-      .find('input')
-      .map(function(i, input) {
-        return $(input).val(); 
+      .find('span')
+      .map(function(i, span) {
+        return $(span).text(); 
       });
 
     // fill in the blanks
     var i = 0;
     var userCode = this.code.replace(
-      /<input.*>/ig, 
+      /<span>.*<\/span>/ig, 
       function() {
         return inputs[i++] + ";";
       }
     );
     
+    var showResults = function(template, options) {
+      that.$el
+        .find('.results')
+        .html(template(options))
+        .hide()
+        .fadeIn();
+    };
+    
     (new ScriptEvaluator(userCode))
       .done(function() { 
-        console.log('success!');
+        showResults(Puzzle.successTemplate, that);
       })
-      .fail(function(e) { 
-        console.log('fail', e);
-      });
+      .fail(function(err) { 
+        console.log(Puzzle.failTemplate);
+        showResults(Puzzle.failTemplate, _.extend({err: err}, that));
+      });      
   };
   
   Puzzle.prototype.html = function() {
@@ -99,6 +117,10 @@
       .hide()
       .prependTo($parentEl)
       .fadeIn('slow');
+      
+    this.$el
+      .find('span')
+      .attr('contenteditable', 'true');
       
     this.$el
       .find('.run')

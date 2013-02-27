@@ -3,10 +3,10 @@
   "intro": "Here is some introductory text.",
   "code": [
     "function cat() {",
-    "  <input>",
+    "  <span></span>",
     "  this.meow = 'no';",
     "  (function() {",
-    "    <input value=\"this.meow = 'yes';\">",
+    "    <span>this.meow = 'yes';</span>",
     "  })();",
     "}",
     "",
@@ -14,5 +14,5 @@
     "assert(gilbert.meow, 'yes');"
   ],
   "hint": "What is <code>this</code> referencing in the second blank? It may not be what you think.",
-  "success": "<p>Great! (Insert a brief explanation here.)</p><p>For more information on this <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope'>check out this article on functions and scope</a>.</p>"
+  "success": "Great! (Insert a brief explanation here.) For more information on this <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope'>check out this article on functions and scope</a>."
 }
