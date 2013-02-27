@@ -1,14 +1,16 @@
 {
+  "title": "Gilbert the Cat",
+  "intro": "Here is some introductory text.",
   "code": [
     "function cat() {",
     "  <input>",
     "  this.meow = 'no';",
     "  (function() {",
-    "    <input value=\"[this.meow = 'yes';]\">",
+    "    <input value=\"this.meow = 'yes';\">",
     "  })();",
     "}",
     "",
-    "gilbert = new cat();",
+    "var gilbert = new cat();",
     "assert(gilbert.meow, 'yes');"
   ],
   "hint": "What is <code>this</code> referencing in the second blank? It may not be what you think.",

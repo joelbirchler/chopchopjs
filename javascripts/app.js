@@ -24,24 +24,21 @@
     return deferred.promise();
   };
   
-  (new ScriptEvaluator("assert(1, 1);"))
-    .done(function() { 
-      console.log('done');
-    })
-    .fail(function(e) { 
-      console.log('fail', e);
-    });
-    
+      
   //
   // Puzzle
   //
   var Puzzle = function(options) {
-    _.extend(this, options);
-    
-    this.run = function() {
-      
-    };
+    _.extend(this, options);    
   };
+  
+  Puzzle.template = _.template("<section>" +
+    "<h1><%= title %></h1>" +
+    "<p><%= intro %></p>" +
+    "<pre><%= code %></pre>" +
+    "<a class='run' href='javascript:void(0)'>Run</a>" +
+    "</section>"
+  );
   
   Puzzle.load = function(puzzleName) {
     var deferred = $.Deferred();
@@ -63,11 +60,64 @@
     });
     
     return deferred.promise();
-  }
+  };
   
-  Puzzle.load('gilbert')
-    .done(function(puzzle) {
-      console.log("loaded!", puzzle);
-    });
+  Puzzle.prototype.run = function() {
+    // grab the values from the text inputs
+    var inputs = this.$el
+      .find('input')
+      .map(function(i, input) {
+        return $(input).val(); 
+      });
+
+    // fill in the blanks
+    var i = 0;
+    var userCode = this.code.replace(
+      /<input.*>/ig, 
+      function() {
+        return inputs[i++] + ";";
+      }
+    );
+    
+    (new ScriptEvaluator(userCode))
+      .done(function() { 
+        console.log('success!');
+      })
+      .fail(function(e) { 
+        console.log('fail', e);
+      });
+  };
+  
+  Puzzle.prototype.html = function() {
+    return Puzzle.template(this);
+  };
+  
+  Puzzle.prototype.prependTo = function($parentEl) {
+    var that = this;
+    
+    this.$el = $(this.html())
+      .hide()
+      .prependTo($parentEl)
+      .fadeIn('slow');
+      
+    this.$el
+      .find('.run')
+      .on('click', function() { 
+        that.run.call(that);
+      });
+  };
+  
+  
+  //
+  // Load the first puzzle and get moving
+  //
+  $(function() {
+    var $content = $('#content');
+
+    Puzzle.load('gilbert')
+      .done(function(puzzle) {
+        puzzle.prependTo($content);
+      });
+  })
 
 })();
