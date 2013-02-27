@@ -1,4 +1,5 @@
-(function(undefined) {
+(function() {
+  "use strict";
   
   //
   // ScriptEvaluator may be used in two ways. Either pass success and fail callback arguments or 
