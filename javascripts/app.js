@@ -43,9 +43,9 @@
     "</section>"
   );
   
-  Puzzle.failTemplate = _.template("<p><span class='error-message'>&#10007; <%= err %>.</span> <%= hint %></p>");
+  Puzzle.failTemplate = _.template("<hr><p><span class='error-message'>&#10007; <%= err %>.</span> <%= hint %></p>");
   
-  Puzzle.successTemplate = _.template("<p><span class='success-check'>&#10003;</span> <%= success %></p>");
+  Puzzle.successTemplate = _.template("<hr><p><span class='success-check'>&#10003;</span> <%= success %></p>");
   
   Puzzle.load = function(puzzleName) {
     var deferred = $.Deferred();
