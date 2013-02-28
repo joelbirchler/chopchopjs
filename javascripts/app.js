@@ -91,7 +91,7 @@ $(function() {
     var inputs = this.$el
       .find('span')
       .map(function(i, span) {
-        return $(span).text(); 
+        return $.trim($(span).text()); 
       });
 
     // fill in the blanks
