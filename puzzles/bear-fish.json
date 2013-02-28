@@ -1,0 +1,27 @@
+{
+  "title": "Bear Fish",
+  "intro": "Here's a bit of nasty code-- unhelpful variable names, no comments, and magic tricks.",
+  "code": [
+    "var bear = 0, fish = {}, river = [];",
+    "",
+    "for (var i = 0; i < 10; i++) {",
+    "  river[i] = Math.random();",
+    "}",
+    "",
+    "var flow = function(obj, iterator, context) {",
+    "  for (var j = 0, len = obj.length; j < len; j++) {",
+    "    if (iterator.call(context, obj[j], j) === fish) return;",
+    "  }",
+    "};",
+    "",
+    "flow(river, function(w, t) {",
+    "  var river = undefined;",
+    "  bear += w;",
+    "  <span></span>",
+    "}, this);",
+    "",
+    "assert(bear, river[0] + river[1] + river[2]);"
+  ],
+  "hint": "The key here is to figure out what the flow function is up to and how to stop it.",
+  "success": "Great!"
+}

@@ -1,0 +1,17 @@
+{
+  "title": "No Matter How You Splice It...",
+  "intro": "This puzzle demostrates one of the many JS traps. The special <code>arguments</code> object is a handy local variable in all functions. It acts a bit like an Array, but it's missing a few features.",
+  "code": [
+    "var meow = function() {",
+    "  var answer = undefined;",
+    "  var args = <span>arguments</span>;",
+    "  return args.pop();",
+    "}",
+    "",
+    "var answer = Math.random();",
+    "var cats = meow(answer);",
+    "assert(cats, answer);"
+  ],
+  "hint": "It looks like <code>Array.prototype</code> has a <code>pop</code> function.",
+  "success": "Good work!"
+}

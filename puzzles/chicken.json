@@ -1,0 +1,11 @@
+{
+  "title": "Chicken Soup",
+  "intro": "Let's get this code to run by only changing the second line.",
+  "code": [
+    "var foo = 2 + chicken();",
+    "<span>var chicken = function() { return 2; }</span>",
+    "assert(foo, 4);"
+  ],
+  "hint": "Which came first: the chicken or the function declaration?",
+  "success": "Function declarations are loaded before code execution. A function expression on the other hand is evaluated when it is executed."
+}

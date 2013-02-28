@@ -1,0 +1,11 @@
+{
+  "title": "An Array of Arguments",
+  "intro": "Looks like we're trying to put a square peg in a round hole.",
+  "code": [
+    "var foo = [8,1,5,3,1];",
+    "var theMin = Math.min.<span></span>;",
+    "assert(theMin, 1);"
+  ],
+  "hint": "Check out the <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Global_Objects/Math/min'>signature for <code>Math.min</code></a>. You may need to <code>apply</code> a different tactic.",
+  "success": "Excellent! All functions have <code>call</code> and <code>apply</code> functions. They both execute the function and allow you to set the context of the <code>this</code> keyword. They differ in their signature. <code>call</code> accepts a list of arguments, while <code>apply</code> accepts an array."
+}

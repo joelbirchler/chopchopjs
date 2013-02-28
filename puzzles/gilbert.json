@@ -1,6 +1,6 @@
 {
   "title": "Gilbert the Cat",
-  "intro": "Here is some introductory text.",
+  "intro": "What is <code>this</code> referencing in the second blank? It may not be what you think.",
   "code": [
     "function cat() {",
     "  <span></span>",
@@ -13,6 +13,6 @@
     "var gilbert = new cat();",
     "assert(gilbert.meow, 'yes');"
   ],
-  "hint": "What is <code>this</code> referencing in the second blank? It may not be what you think.",
-  "success": "Great! (Insert a brief explanation here.) For more information on this <a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope'>check out this article on functions and scope</a>."
+  "hint": "<a href='https://developer.mozilla.org/en-US/docs/JavaScript/Reference/Functions_and_function_scope'>Check out this article on functions and scope</a>.",
+  "success": "Great! The <code>this</code> keyword inside a nested function refers to the global object <code>window</code> in the browser. In this case, we are running in <strong>strict mode</strong> and <code>this</code> is <code>undefined</code>."
 }
