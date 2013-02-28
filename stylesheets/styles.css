@@ -16,6 +16,9 @@
   -webkit-font-smoothing: antialiased;
 }
 
+
+/*  Main element styles */
+
 body {
   padding: 20px 100px;
   margin: 0px;
@@ -60,6 +63,15 @@ blockquote {
   font-style: italic;
 }
 
+hr {
+  margin: 20px 0;
+  border: none;
+  border-top: 1px dotted #999;
+}
+
+
+/*  Code area styles */
+
 code, pre, pre input {
   font-family: "Lucida Sans", Monaco, Bitstream Vera Sans Mono, Lucida Console, Terminal;
   color: #000;
@@ -83,16 +95,22 @@ pre span {
   background-color: #fefea5;
 }
 
-hr {
-  margin: 20px 0;
-  border: none;
-  border-top: 1px dotted #999;
-}
+/*  Header styles */
 
 header {
   text-align: center;
   padding-bottom: 20px;
 }
+
+.github-ribbon {
+  position: absolute; 
+  top: 0; 
+  right: 0; 
+  border: 0;
+}
+
+
+/*  Section (puzzle cards) styles */
 
 section {
   background-color: white;
@@ -136,11 +154,3 @@ section.final a {
 section.final a:hover {
   color: #107eb6;
 }
-
-.github-ribbon {
-  position: absolute; 
-  top: 0; 
-  right: 0; 
-  border: 0;
-}
-
