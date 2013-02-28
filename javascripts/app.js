@@ -16,7 +16,7 @@ $(function() {
     
     var assert = function(x,y) {
       if (x==y) return;
-      throw "Assert failed. '"+x+"' != '"+y+"'.";
+      throw "Assert failed. '"+x+"' != '"+y+"'";
     }
 
     try {
