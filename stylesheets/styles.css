@@ -75,6 +75,7 @@ pre {
 pre span {
   display: inline-block;
   overflow: hidden;
+  vertical-align: middle;
   padding: 2px 4px;
   min-width: 150px;
   min-height: 24px;
@@ -116,6 +117,24 @@ section .results .error-message {
 
 section .results .success-check {
   color: #097d1b;
+}
+
+section.final {
+  background-color: #333;
+  color: #fff;
+}
+
+section.final h1 {
+  color: #dbd9fd;
+}
+
+section.final a {
+  color: #308ec6;
+  text-decoration: underline;
+}
+
+section.final a:hover {
+  color: #107eb6;
 }
 
 .github-ribbon {
