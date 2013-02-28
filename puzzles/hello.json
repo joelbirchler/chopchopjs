@@ -1,0 +1,9 @@
+{
+  "title": "Hello!",
+  "intro": "ChopChopJS is a JavaScript puzzle game. The goal is to fill in the blanks to make the assert function pass. Our assert function compares two arguments using the JavaScript <code>==</code> operator. Let's get started. Type \"howdy\" in the text box below and then click \"run\".",
+  "code": [
+    "assert('<span></span>', 'howdy');"
+  ],
+  "hint": "Ok. This wasn't supposed to be hard. Just type \"howdy\" without quotes in the yellow box above.",
+  "success": "Cool."
+}

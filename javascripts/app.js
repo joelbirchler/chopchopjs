@@ -1,5 +1,8 @@
-(function() {
+$(function() {
   "use strict";
+  
+  var puzzleNames,
+    $content = $('#content');
   
   //
   // ScriptEvaluator may be used in two ways. Either pass success and fail callback arguments or 
@@ -47,26 +50,32 @@
   
   Puzzle.successTemplate = _.template("<hr><p><span class='success-check'>&#10003;</span> <%= success %></p>");
   
+  Puzzle.finalTemplate = _.template("<section class='final'>" +
+    "<h1>Nice!</h1>" +
+    "<p>You have completed all of the ChopChopJS puzzles. This project is open source. If you would like to " +
+    "contribute by adding new puzzles or fixing bugs, please <a href='https://github.com/joelbirchler/chopchopjs'>" +
+    "fork me on github</a>." +
+    "</p>" +
+    "</section>"
+  );
+  
   Puzzle.load = function(puzzleName) {
-    var deferred = $.Deferred();
-    
-    var loadPromise = $.ajax({
-      url: 'puzzles/' + puzzleName + '.json',
-      dataType: 'json'
-    });
-    
-    loadPromise.fail(function() {
-      console.error("Error loading puzzle.", arguments);
-    });
-    
-    loadPromise.done(function(data) {
-      data.code = data.code.join("\n");
-      var puzzle = new Puzzle(data);
-      
-      deferred.resolve(puzzle);
-    });
-    
-    return deferred.promise();
+    $.getJSON('puzzles/' + puzzleName + '.json')
+      .fail(function() {
+        console.error("Error loading puzzle.", arguments);
+      })
+      .done(function(data) {
+        data.code = data.code.join("\n");
+        var puzzle = new Puzzle(_.extend({name: puzzleName}, data));
+        puzzle.appendTo($content);
+      });
+  };
+  
+  Puzzle.showFinal = function() {
+    $(Puzzle.finalTemplate())
+      .hide()
+      .fadeIn()
+      .appendTo($content);
   };
   
   Puzzle.prototype.run = function() {
@@ -84,7 +93,7 @@
     var userCode = this.code.replace(
       /<span>.*<\/span>/ig, 
       function() {
-        return inputs[i++] + ";";
+        return inputs[i++];
       }
     );
     
@@ -99,9 +108,21 @@
     (new ScriptEvaluator(userCode))
       .done(function() { 
         showResults(Puzzle.successTemplate, that);
+        
+        // scroll down to show it
+        $('html, body').animate({
+          scrollTop: that.$el.find('.results').offset().top
+        })
+        
+        // move on to the next one
+        var nextIndex = _.indexOf(puzzleNames, that.name) + 1;
+        if (nextIndex < puzzleNames.length) {
+          Puzzle.load(puzzleNames[nextIndex]);
+        } else {
+          Puzzle.showFinal();
+        }
       })
       .fail(function(err) { 
-        console.log(Puzzle.failTemplate);
         showResults(Puzzle.failTemplate, _.extend({err: err}, that));
       });      
   };
@@ -110,12 +131,12 @@
     return Puzzle.template(this);
   };
   
-  Puzzle.prototype.prependTo = function($parentEl) {
+  Puzzle.prototype.appendTo = function($parentEl) {
     var that = this;
     
     this.$el = $(this.html())
       .hide()
-      .prependTo($parentEl)
+      .appendTo($parentEl)
       .fadeIn('slow');
       
     this.$el
@@ -131,15 +152,15 @@
   
   
   //
-  // Load the first puzzle and get moving
-  //
-  $(function() {
-    var $content = $('#content');
+  // Load the puzzle index and get started.
+  //    
+  $.getJSON('puzzles/index.json')
+    .done(function(data) {
+      puzzleNames = data;
+      Puzzle.load(puzzleNames[0]);
+    })
+    .fail(function(err) { 
+      console.error('Error loading index.json.', err);
+    });
 
-    Puzzle.load('gilbert')
-      .done(function(puzzle) {
-        puzzle.prependTo($content);
-      });
-  })
-
-})();
+});
