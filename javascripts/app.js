@@ -2,6 +2,7 @@ $(function() {
   "use strict";
   
   var puzzleNames,
+    loadedPuzzleNames = [],
     $content = $('#content');
   
   //
@@ -60,6 +61,11 @@ $(function() {
   );
   
   Puzzle.load = function(puzzleName) {
+    // prevent loading dupes
+    if (_.contains(loadedPuzzleNames, puzzleName)) { return; }
+    loadedPuzzleNames.push(puzzleName);
+    
+    // grab the data, create the puzzle, and append it to the dom
     $.getJSON('puzzles/' + puzzleName + '.json')
       .fail(function() {
         console.error("Error loading puzzle.", arguments);
