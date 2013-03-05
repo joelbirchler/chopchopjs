@@ -1,0 +1,21 @@
+{
+  "title": "Function Function Function",
+  "intro": "The ability to pass around functions is a very powerful JavaScript feature.",
+  "code": [
+    "var add = function(x, y) {",
+    "  return x + y;",
+    "};",
+    "",
+    "var applyFunc = function(func) {",
+    "  return function(x) {",
+    "    return function(y) {",
+    "      return func(x, y);",
+    "    }",
+    "  }",
+    "};",
+    "",
+    "assert(applyFunc<span>(add, 2, 3)</span>, 5);"
+  ],
+  "hint": "How many function calls do we need?",
+  "success": "Got it!"
+}
