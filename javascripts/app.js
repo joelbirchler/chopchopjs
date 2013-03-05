@@ -65,6 +65,8 @@ $(function() {
     if (_.contains(loadedPuzzleNames, puzzleName)) { return; }
     loadedPuzzleNames.push(puzzleName);
     
+    location.hash = puzzleName;
+    
     // grab the data, create the puzzle, and append it to the dom
     $.getJSON('puzzles/' + puzzleName + '.json')
       .fail(function() {
@@ -163,7 +165,8 @@ $(function() {
   $.getJSON('puzzles/index.json')
     .done(function(data) {
       puzzleNames = data;
-      Puzzle.load(puzzleNames[0]);
+      var firstPuzzle = (location.hash && _.include(puzzleNames, location.hash.slice(1))) ? location.hash.slice(1) : puzzleNames[0];
+      Puzzle.load(firstPuzzle);
     })
     .fail(function(err) { 
       console.error('Error loading index.json.', err);
