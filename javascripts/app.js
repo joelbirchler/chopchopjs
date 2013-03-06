@@ -16,12 +16,13 @@ $(function() {
       deferred = $.Deferred();
     
     var assert = function(x,y) {
+      if (arguments.length == 1 && x == true) return;
       if (x==y) return;
       throw "Assert failed. '"+x+"' != '"+y+"'";
     }
 
     try {
-      eval("(function() {" + script + "assert(true, true); assert(false, false); assert(42, 42); var iAmACheater = false; try { assert(true, false); iAmACheater = true; } catch(e) { iAmACheater = false; }; if (iAmACheater) { throw 'Do not cheat.'; } })();");
+      eval("(function() {" + script + "assert(true); assert(true, true); assert(false, false); assert(42, 42); var iAmACheater = false; try { assert(true, false); iAmACheater = true; } catch(e) { iAmACheater = false; }; if (iAmACheater) { throw 'Assert thought true was false.'; } })();");
       deferred.resolve();
     } catch(err) {
       deferred.reject(err);

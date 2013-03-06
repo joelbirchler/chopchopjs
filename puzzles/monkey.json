@@ -9,7 +9,7 @@
     "}",
     "",
     "var alfonso = monkey();",
-    "assert(alfonso instanceof monkey, true);"
+    "assert(alfonso instanceof monkey);"
   ],
   "hint": "What's the function context inside monkey when we call it?",
   "success": "Great!"

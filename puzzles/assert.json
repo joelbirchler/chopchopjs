@@ -1,0 +1,17 @@
+{
+  "title": "assert()",
+  "intro": "Throughout this game we will use a custom function called <strong>assert</strong>. This will return silently if all went well, but throw an exception if the first parameter is not equal to the second. Let's add the ability to only pass one parameter. If it's false, we'll throw an error.",
+  "code": [
+    "var assert = function(x,y) {",
+    "  <span></span>",
+    "  if (x==y) return;",
+    "  throw \"Assert failed. '\"+x+\"' != '\"+y+\"'\";",
+    "}",
+    "",
+    "assert(42, 42);",
+    "assert(42==42);",
+    "try { assert(42==156); } catch (e) { assert(true); }"
+  ],
+  "hint": "Functions have access to a special variable called <strong>arguments</strong>. You can use it to count the number of arguments that were passed.",
+  "success": "Now let's try a puzzle!"
+}

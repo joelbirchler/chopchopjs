@@ -5,5 +5,5 @@
     "assert('<span></span>', 'howdy');"
   ],
   "hint": "Ok. This wasn't supposed to be hard. Just type \"howdy\" without quotes in the yellow box above.",
-  "success": "We're off to a good start. Now let's try a puzzle."
+  "success": "Okay!"
 }
