@@ -1,0 +1,16 @@
+{
+  "title": "Making Monkeys",
+  "intro": "Woops! We forgot to use the 'new' keyword when creating a new instance of monkey. How can we protect against that?",
+  "code": [
+    "var monkey = function() {",
+    "  <span>var that = this;</span>",
+    "  that.throwPoo = true;",
+    "  <span></span>",
+    "}",
+    "",
+    "var alfonso = monkey();",
+    "assert(alfonso instanceof monkey, true);"
+  ],
+  "hint": "What's the function context inside monkey when we call it?",
+  "success": "Great!"
+}
